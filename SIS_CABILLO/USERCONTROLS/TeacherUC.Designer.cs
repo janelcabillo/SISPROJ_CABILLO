@@ -32,7 +32,9 @@
             btnAddNew = new Button();
             btnUpdate = new Button();
             btnDelete = new Button();
-            panelAddStudent = new Panel();
+            panelAddTeacher = new Panel();
+            txtSpecialization = new TextBox();
+            txtDepartment = new TextBox();
             btnCancel = new Button();
             btnSave = new Button();
             cmbStatus = new ComboBox();
@@ -44,10 +46,8 @@
             txtLastName = new TextBox();
             txtFirstName = new TextBox();
             lblAddNewTeacher = new Label();
-            txtDepartment = new TextBox();
-            txtSpecialization = new TextBox();
             ((System.ComponentModel.ISupportInitialize)dgvTeacher).BeginInit();
-            panelAddStudent.SuspendLayout();
+            panelAddTeacher.SuspendLayout();
             SuspendLayout();
             // 
             // dgvTeacher
@@ -70,6 +70,7 @@
             btnAddNew.TabIndex = 2;
             btnAddNew.Text = "Add New";
             btnAddNew.UseVisualStyleBackColor = false;
+            btnAddNew.Click += btnAddNew_Click;
             // 
             // btnUpdate
             // 
@@ -82,6 +83,7 @@
             btnUpdate.TabIndex = 3;
             btnUpdate.Text = "Update";
             btnUpdate.UseVisualStyleBackColor = false;
+            btnUpdate.Click += btnUpdate_Click;
             // 
             // btnDelete
             // 
@@ -95,28 +97,46 @@
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
             // 
-            // panelAddStudent
+            // panelAddTeacher
             // 
-            panelAddStudent.BackColor = Color.Gray;
-            panelAddStudent.BorderStyle = BorderStyle.Fixed3D;
-            panelAddStudent.Controls.Add(txtSpecialization);
-            panelAddStudent.Controls.Add(txtDepartment);
-            panelAddStudent.Controls.Add(btnCancel);
-            panelAddStudent.Controls.Add(btnSave);
-            panelAddStudent.Controls.Add(cmbStatus);
-            panelAddStudent.Controls.Add(lblStatus);
-            panelAddStudent.Controls.Add(dtpHireDate);
-            panelAddStudent.Controls.Add(lblHireDate);
-            panelAddStudent.Controls.Add(txtPhone);
-            panelAddStudent.Controls.Add(txtEmail);
-            panelAddStudent.Controls.Add(txtLastName);
-            panelAddStudent.Controls.Add(txtFirstName);
-            panelAddStudent.Controls.Add(lblAddNewTeacher);
-            panelAddStudent.Location = new Point(441, 0);
-            panelAddStudent.Name = "panelAddStudent";
-            panelAddStudent.Size = new Size(318, 529);
-            panelAddStudent.TabIndex = 5;
-            panelAddStudent.Visible = false;
+            panelAddTeacher.BackColor = Color.Gray;
+            panelAddTeacher.BorderStyle = BorderStyle.Fixed3D;
+            panelAddTeacher.Controls.Add(txtSpecialization);
+            panelAddTeacher.Controls.Add(txtDepartment);
+            panelAddTeacher.Controls.Add(btnCancel);
+            panelAddTeacher.Controls.Add(btnSave);
+            panelAddTeacher.Controls.Add(cmbStatus);
+            panelAddTeacher.Controls.Add(lblStatus);
+            panelAddTeacher.Controls.Add(dtpHireDate);
+            panelAddTeacher.Controls.Add(lblHireDate);
+            panelAddTeacher.Controls.Add(txtPhone);
+            panelAddTeacher.Controls.Add(txtEmail);
+            panelAddTeacher.Controls.Add(txtLastName);
+            panelAddTeacher.Controls.Add(txtFirstName);
+            panelAddTeacher.Controls.Add(lblAddNewTeacher);
+            panelAddTeacher.Location = new Point(441, 0);
+            panelAddTeacher.Name = "panelAddTeacher";
+            panelAddTeacher.Size = new Size(318, 529);
+            panelAddTeacher.TabIndex = 5;
+            panelAddTeacher.Visible = false;
+            // 
+            // txtSpecialization
+            // 
+            txtSpecialization.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtSpecialization.Location = new Point(44, 337);
+            txtSpecialization.Name = "txtSpecialization";
+            txtSpecialization.PlaceholderText = "Specialization:";
+            txtSpecialization.Size = new Size(228, 25);
+            txtSpecialization.TabIndex = 17;
+            // 
+            // txtDepartment
+            // 
+            txtDepartment.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            txtDepartment.Location = new Point(44, 296);
+            txtDepartment.Name = "txtDepartment";
+            txtDepartment.PlaceholderText = "Department:";
+            txtDepartment.Size = new Size(228, 25);
+            txtDepartment.TabIndex = 16;
             // 
             // btnCancel
             // 
@@ -129,6 +149,7 @@
             btnCancel.TabIndex = 15;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = false;
+            btnCancel.Click += btnCancel_Click;
             // 
             // btnSave
             // 
@@ -141,6 +162,7 @@
             btnSave.TabIndex = 14;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = false;
+            btnSave.Click += btnSave_Click;
             // 
             // cmbStatus
             // 
@@ -229,39 +251,22 @@
             lblAddNewTeacher.TabIndex = 0;
             lblAddNewTeacher.Text = "Add New Teacher";
             // 
-            // txtDepartment
-            // 
-            txtDepartment.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtDepartment.Location = new Point(44, 296);
-            txtDepartment.Name = "txtDepartment";
-            txtDepartment.PlaceholderText = "Department:";
-            txtDepartment.Size = new Size(228, 25);
-            txtDepartment.TabIndex = 16;
-            // 
-            // txtSpecialization
-            // 
-            txtSpecialization.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            txtSpecialization.Location = new Point(44, 337);
-            txtSpecialization.Name = "txtSpecialization";
-            txtSpecialization.PlaceholderText = "Specialization:";
-            txtSpecialization.Size = new Size(228, 25);
-            txtSpecialization.TabIndex = 17;
-            // 
             // TeacherUC
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightGray;
-            Controls.Add(panelAddStudent);
+            Controls.Add(panelAddTeacher);
             Controls.Add(btnDelete);
             Controls.Add(btnUpdate);
             Controls.Add(btnAddNew);
             Controls.Add(dgvTeacher);
             Name = "TeacherUC";
             Size = new Size(759, 529);
+            Load += TeacherUC_Load;
             ((System.ComponentModel.ISupportInitialize)dgvTeacher).EndInit();
-            panelAddStudent.ResumeLayout(false);
-            panelAddStudent.PerformLayout();
+            panelAddTeacher.ResumeLayout(false);
+            panelAddTeacher.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -271,7 +276,7 @@
         private Button btnAddNew;
         private Button btnUpdate;
         private Button btnDelete;
-        private Panel panelAddStudent;
+        private Panel panelAddTeacher;
         private TextBox txtSpecialization;
         private TextBox txtDepartment;
         private Button btnCancel;

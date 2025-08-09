@@ -9,6 +9,6 @@ namespace SIS_CABILLO.FORMS
 {
     internal class DatabaseConnection
     {
-        public static string connectionString = "Data Source=5lgo8sik\\SQLEXPRESS;Initial Catalog=sis;Integrated Security=True;TrustServerCertificate=True";
+        public static string connectionString = "Data Source=5lgo8sik\\SQLEXPRESS;Initial Catalog=SIS;Integrated Security=True;TrustServerCertificate=True";
     }
 }
