@@ -1,0 +1,62 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using SIS_CABILLO.FORMS;
+
+namespace SIS_CABILLO
+{
+    public partial class Admin : Form
+    {
+        private string userAdmin;
+
+        private StudentUC studentUC;
+        private TeacherUC teacherUC;
+        public Admin(string admin)
+        {
+            InitializeComponent();
+            this.userAdmin = admin;
+
+            StudentUC studentUC = new StudentUC();
+            studentUC.Visible = false;
+            this.Controls.Add(studentUC);
+
+            TeacherUC teacherUC = new TeacherUC();
+            teacherUC.Visible = false;
+            this.Controls.Add(teacherUC);
+        }
+
+
+        private void Admin_Load(object sender, EventArgs e)
+        {
+            lblWelcomeAdmin.Text = $"Welcome {userAdmin}!";
+        }
+
+        private void btnStudent_Click(object sender, EventArgs e)
+        {
+            StudentUC studentUC = new StudentUC();
+            studentUC.Dock = DockStyle.Fill;
+            studentUC.Margin = new Padding(0);
+            studentUC.Padding = new Padding(0);
+
+            panelContainer.Controls.Clear();
+            panelContainer.Controls.Add(studentUC);
+        }
+
+        private void btnTeacher_Click(object sender, EventArgs e)
+        {
+            TeacherUC teacherUC = new TeacherUC();
+            teacherUC.Dock = DockStyle.Fill;
+            teacherUC.Margin = new Padding(0);
+            teacherUC.Padding = new Padding(0);
+
+            panelContainer.Controls.Clear();
+            panelContainer.Controls.Add(teacherUC);
+        }
+    }
+}
