@@ -17,6 +17,7 @@ namespace SIS_CABILLO
 
         private StudentUC studentUC;
         private TeacherUC teacherUC;
+        private DashboardUC dashboardUC;
         public Admin(string admin)
         {
             InitializeComponent();
@@ -57,6 +58,19 @@ namespace SIS_CABILLO
 
             panelContainer.Controls.Clear();
             panelContainer.Controls.Add(teacherUC);
+        }
+
+        private void btnDashboard_Click(object sender, EventArgs e)
+        {
+            DashboardUC dashboardUC = new DashboardUC();
+            dashboardUC.Dock = DockStyle.Fill;
+            dashboardUC.Margin = new Padding(0);
+            dashboardUC.Padding = new Padding(0);
+
+            panelContainer.Controls.Clear();
+            panelContainer.Controls.Add(dashboardUC);
+
+            dashboardUC.LoadChart();
         }
     }
 }

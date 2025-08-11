@@ -54,8 +54,9 @@
             panelAdmin.Controls.Add(btnDashboard);
             panelAdmin.Controls.Add(lblWelcomeAdmin);
             panelAdmin.Location = new Point(0, 0);
+            panelAdmin.Margin = new Padding(3, 2, 3, 2);
             panelAdmin.Name = "panelAdmin";
-            panelAdmin.Size = new Size(305, 554);
+            panelAdmin.Size = new Size(267, 416);
             panelAdmin.TabIndex = 0;
             // 
             // btnLogout
@@ -64,9 +65,10 @@
             btnLogout.FlatStyle = FlatStyle.Popup;
             btnLogout.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogout.ForeColor = Color.White;
-            btnLogout.Location = new Point(40, 485);
+            btnLogout.Location = new Point(35, 364);
+            btnLogout.Margin = new Padding(3, 2, 3, 2);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(223, 50);
+            btnLogout.Size = new Size(195, 38);
             btnLogout.TabIndex = 7;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
@@ -77,9 +79,10 @@
             btnReports.FlatStyle = FlatStyle.Popup;
             btnReports.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnReports.ForeColor = Color.White;
-            btnReports.Location = new Point(40, 429);
+            btnReports.Location = new Point(35, 322);
+            btnReports.Margin = new Padding(3, 2, 3, 2);
             btnReports.Name = "btnReports";
-            btnReports.Size = new Size(223, 50);
+            btnReports.Size = new Size(195, 38);
             btnReports.TabIndex = 6;
             btnReports.Text = "Reports";
             btnReports.UseVisualStyleBackColor = false;
@@ -90,9 +93,10 @@
             btnLogs.FlatStyle = FlatStyle.Popup;
             btnLogs.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogs.ForeColor = Color.White;
-            btnLogs.Location = new Point(40, 373);
+            btnLogs.Location = new Point(35, 280);
+            btnLogs.Margin = new Padding(3, 2, 3, 2);
             btnLogs.Name = "btnLogs";
-            btnLogs.Size = new Size(223, 50);
+            btnLogs.Size = new Size(195, 38);
             btnLogs.TabIndex = 5;
             btnLogs.Text = "Logs";
             btnLogs.UseVisualStyleBackColor = false;
@@ -103,9 +107,10 @@
             btnSubject.FlatStyle = FlatStyle.Popup;
             btnSubject.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnSubject.ForeColor = Color.White;
-            btnSubject.Location = new Point(40, 317);
+            btnSubject.Location = new Point(35, 238);
+            btnSubject.Margin = new Padding(3, 2, 3, 2);
             btnSubject.Name = "btnSubject";
-            btnSubject.Size = new Size(223, 50);
+            btnSubject.Size = new Size(195, 38);
             btnSubject.TabIndex = 4;
             btnSubject.Text = "Subject";
             btnSubject.UseVisualStyleBackColor = false;
@@ -116,9 +121,10 @@
             btnTeacher.FlatStyle = FlatStyle.Popup;
             btnTeacher.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnTeacher.ForeColor = Color.White;
-            btnTeacher.Location = new Point(40, 261);
+            btnTeacher.Location = new Point(35, 196);
+            btnTeacher.Margin = new Padding(3, 2, 3, 2);
             btnTeacher.Name = "btnTeacher";
-            btnTeacher.Size = new Size(223, 50);
+            btnTeacher.Size = new Size(195, 38);
             btnTeacher.TabIndex = 3;
             btnTeacher.Text = "Teacher";
             btnTeacher.UseVisualStyleBackColor = false;
@@ -130,9 +136,10 @@
             btnStudent.FlatStyle = FlatStyle.Popup;
             btnStudent.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnStudent.ForeColor = Color.White;
-            btnStudent.Location = new Point(40, 205);
+            btnStudent.Location = new Point(35, 154);
+            btnStudent.Margin = new Padding(3, 2, 3, 2);
             btnStudent.Name = "btnStudent";
-            btnStudent.Size = new Size(223, 50);
+            btnStudent.Size = new Size(195, 38);
             btnStudent.TabIndex = 2;
             btnStudent.Text = "Student";
             btnStudent.UseVisualStyleBackColor = false;
@@ -144,12 +151,14 @@
             btnDashboard.FlatStyle = FlatStyle.Popup;
             btnDashboard.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnDashboard.ForeColor = Color.White;
-            btnDashboard.Location = new Point(40, 149);
+            btnDashboard.Location = new Point(35, 112);
+            btnDashboard.Margin = new Padding(3, 2, 3, 2);
             btnDashboard.Name = "btnDashboard";
-            btnDashboard.Size = new Size(223, 50);
+            btnDashboard.Size = new Size(195, 38);
             btnDashboard.TabIndex = 1;
             btnDashboard.Text = "Dashboard";
             btnDashboard.UseVisualStyleBackColor = false;
+            btnDashboard.Click += btnDashboard_Click;
             // 
             // lblWelcomeAdmin
             // 
@@ -157,9 +166,9 @@
             lblWelcomeAdmin.BackColor = Color.Transparent;
             lblWelcomeAdmin.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblWelcomeAdmin.ForeColor = Color.White;
-            lblWelcomeAdmin.Location = new Point(78, 116);
+            lblWelcomeAdmin.Location = new Point(68, 87);
             lblWelcomeAdmin.Name = "lblWelcomeAdmin";
-            lblWelcomeAdmin.Size = new Size(140, 19);
+            lblWelcomeAdmin.Size = new Size(121, 16);
             lblWelcomeAdmin.TabIndex = 0;
             lblWelcomeAdmin.Text = "Welcome Admin!";
             // 
@@ -167,19 +176,21 @@
             // 
             panelContainer.BorderStyle = BorderStyle.Fixed3D;
             panelContainer.Font = new Font("Arial", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            panelContainer.Location = new Point(311, 12);
+            panelContainer.Location = new Point(272, 9);
+            panelContainer.Margin = new Padding(3, 2, 3, 2);
             panelContainer.Name = "panelContainer";
-            panelContainer.Size = new Size(759, 529);
+            panelContainer.Size = new Size(665, 398);
             panelContainer.TabIndex = 1;
             // 
             // Admin
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightGray;
-            ClientSize = new Size(1082, 553);
+            ClientSize = new Size(947, 415);
             Controls.Add(panelContainer);
             Controls.Add(panelAdmin);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Admin";
             Text = "Admin";
             Load += Admin_Load;
