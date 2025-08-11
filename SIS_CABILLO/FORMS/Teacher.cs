@@ -16,12 +16,24 @@ namespace SIS_CABILLO
         public Teacher(string teacher)
         {
             InitializeComponent();
-            this.userTeacher = teacher; 
+            this.userTeacher = teacher;
         }
 
         private void Teacher_Load(object sender, EventArgs e)
         {
             lblWelcomeTeacher.Text = $"Welcome {userTeacher}!";
+        }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                LoginForm loginForm = new LoginForm();
+                loginForm.Show();
+                this.Close();
+            }
         }
     }
 }

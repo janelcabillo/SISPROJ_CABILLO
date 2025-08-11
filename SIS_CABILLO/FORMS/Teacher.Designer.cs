@@ -41,8 +41,9 @@
             panelTeacher.Controls.Add(btnLogout);
             panelTeacher.Controls.Add(lblWelcomeTeacher);
             panelTeacher.Location = new Point(0, 0);
+            panelTeacher.Margin = new Padding(3, 2, 3, 2);
             panelTeacher.Name = "panelTeacher";
-            panelTeacher.Size = new Size(305, 554);
+            panelTeacher.Size = new Size(267, 416);
             panelTeacher.TabIndex = 2;
             // 
             // btnLogout
@@ -51,12 +52,14 @@
             btnLogout.FlatStyle = FlatStyle.Popup;
             btnLogout.Font = new Font("Arial", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             btnLogout.ForeColor = Color.White;
-            btnLogout.Location = new Point(40, 485);
+            btnLogout.Location = new Point(35, 364);
+            btnLogout.Margin = new Padding(3, 2, 3, 2);
             btnLogout.Name = "btnLogout";
-            btnLogout.Size = new Size(223, 50);
+            btnLogout.Size = new Size(195, 38);
             btnLogout.TabIndex = 7;
             btnLogout.Text = "Logout";
             btnLogout.UseVisualStyleBackColor = false;
+            btnLogout.Click += btnLogout_Click;
             // 
             // lblWelcomeTeacher
             // 
@@ -64,19 +67,20 @@
             lblWelcomeTeacher.BackColor = Color.Transparent;
             lblWelcomeTeacher.Font = new Font("Arial", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             lblWelcomeTeacher.ForeColor = Color.White;
-            lblWelcomeTeacher.Location = new Point(78, 116);
+            lblWelcomeTeacher.Location = new Point(68, 87);
             lblWelcomeTeacher.Name = "lblWelcomeTeacher";
-            lblWelcomeTeacher.Size = new Size(154, 19);
+            lblWelcomeTeacher.Size = new Size(135, 16);
             lblWelcomeTeacher.TabIndex = 0;
             lblWelcomeTeacher.Text = "Welcome Teacher!";
             // 
             // Teacher
             // 
-            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.LightGray;
-            ClientSize = new Size(1082, 553);
+            ClientSize = new Size(947, 415);
             Controls.Add(panelTeacher);
+            Margin = new Padding(3, 2, 3, 2);
             Name = "Teacher";
             Text = "Teacher";
             Load += Teacher_Load;

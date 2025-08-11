@@ -72,5 +72,17 @@ namespace SIS_CABILLO
 
             dashboardUC.LoadChart();
         }
+
+        private void btnLogout_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("Are you sure you want to log out?", "Logout Confirmation", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
+            {
+                 LoginForm loginForm   = new LoginForm();
+                loginForm.Show();
+                this.Close();
+            }
+        }
     }
 }
