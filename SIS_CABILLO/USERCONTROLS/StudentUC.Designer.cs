@@ -103,6 +103,7 @@
             btnDelete.TabIndex = 3;
             btnDelete.Text = "Delete";
             btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // panelAddStudent
             // 
@@ -124,7 +125,7 @@
             panelAddStudent.Controls.Add(txtLastName);
             panelAddStudent.Controls.Add(txtFirstName);
             panelAddStudent.Controls.Add(lblAddNewStudent);
-            panelAddStudent.Location = new Point(386, 0);
+            panelAddStudent.Location = new Point(385, 0);
             panelAddStudent.Margin = new Padding(3, 2, 3, 2);
             panelAddStudent.Name = "panelAddStudent";
             panelAddStudent.Size = new Size(279, 398);

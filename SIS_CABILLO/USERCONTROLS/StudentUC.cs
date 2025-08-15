@@ -61,47 +61,32 @@ namespace SIS_CABILLO.FORMS
 
         private void btnSave_Click(object sender, EventArgs e)
         {
-            // Validation before saving
+            List<string> errors = new List<string>();
+
             if (string.IsNullOrWhiteSpace(txtFirstName.Text))
-            {
-                MessageBox.Show("Please enter the First Name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtFirstName.Focus();
-                return;
-            }
+                errors.Add("First Name is required.");
             if (string.IsNullOrWhiteSpace(txtLastName.Text))
-            {
-                MessageBox.Show("Please enter the Last Name.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtLastName.Focus();
-                return;
-            }
-            if (cmbGender.SelectedItem == null || string.IsNullOrWhiteSpace(cmbGender.SelectedItem.ToString()))
-            {
-                MessageBox.Show("Please select the Gender.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbGender.Focus();
-                return;
-            }
+                errors.Add("Last Name is required.");
+            if (cmbGender.SelectedItem == null || string.IsNullOrWhiteSpace(cmbGender.SelectedItem?.ToString()))
+                errors.Add("Gender is required.");
             if (string.IsNullOrWhiteSpace(txtEmail.Text))
-            {
-                MessageBox.Show("Please enter the Email.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtEmail.Focus();
-                return;
-            }
+                errors.Add("Email is required.");
             if (string.IsNullOrWhiteSpace(txtPhone.Text))
-            {
-                MessageBox.Show("Please enter the Phone number.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtPhone.Focus();
-                return;
-            }
+                errors.Add("Phone number is required.");
             if (string.IsNullOrWhiteSpace(txtAddress.Text))
+                errors.Add("Address is required.");
+            if (cmbStatus.SelectedItem == null || string.IsNullOrWhiteSpace(cmbStatus.SelectedItem?.ToString()))
+                errors.Add("Status is required.");
+
+            // If there are any errors, show them all at once
+            if (errors.Count > 0)
             {
-                MessageBox.Show("Please enter the Address.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                txtAddress.Focus();
-                return;
-            }
-            if (cmbStatus.SelectedItem == null || string.IsNullOrWhiteSpace(cmbStatus.SelectedItem.ToString()))
-            {
-                MessageBox.Show("Please select the Status.", "Validation Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                cmbStatus.Focus();
+                MessageBox.Show(
+                    "Please do check the following:\n\n" + string.Join("\n", errors),
+                    "Validation Error",
+                    MessageBoxButtons.OK,
+                    MessageBoxIcon.Warning
+                );
                 return;
             }
             using (SqlConnection connection = new SqlConnection(DatabaseConnection.connectionString))
@@ -110,18 +95,28 @@ namespace SIS_CABILLO.FORMS
 
                 if (isUpdateMode && selectedStudentId > 0)
                 {
-                    // UPDATE existing student
+                    // First get the linked user_id from the student table
+                    int userId = -1;
+                    using (SqlCommand cmdGetUserId = new SqlCommand("SELECT user_id FROM student WHERE student_id = @id", connection))
+                    {
+                        cmdGetUserId.Parameters.AddWithValue("@id", selectedStudentId);
+                        object obj = cmdGetUserId.ExecuteScalar();
+                        if (obj != null)
+                            userId = Convert.ToInt32(obj);
+                    }
+
+                    // UPDATE student table
                     string updateQuery = @"UPDATE student SET  
-                                    first_name = @first_name,
-                                    last_name = @last_name,
-                                    date_of_birth = @dob,
-                                    gender = @gender,
-                                    email = @email,
-                                    phone = @phone,
-                                    address = @address,
-                                    enrollment_date = @enroll,
-                                    status = @status
-                                   WHERE student_id = @id";
+                                            first_name = @first_name,
+                                            last_name = @last_name,
+                                            date_of_birth = @dob,
+                                            gender = @gender,
+                                            email = @email,
+                                            phone = @phone,
+                                            address = @address,
+                                            enrollment_date = @enroll,
+                                            status = @status
+                                           WHERE student_id = @id";
 
                     using (SqlCommand cmd = new SqlCommand(updateQuery, connection))
                     {
@@ -136,9 +131,26 @@ namespace SIS_CABILLO.FORMS
                         cmd.Parameters.AddWithValue("@status", cmbStatus.SelectedItem?.ToString() ?? "");
                         cmd.Parameters.AddWithValue("@id", selectedStudentId);
 
-                        int rows = cmd.ExecuteNonQuery();
-                        MessageBox.Show(rows > 0 ? "Student updated successfully!" : "Update failed. Student not found.");
+                        cmd.ExecuteNonQuery();
                     }
+
+                    // UPDATE user_login table (username & password)
+                    if (userId > 0)
+                    {
+                        string updateUserQuery = @"UPDATE user_login 
+                                   SET username = @username, 
+                                       password_hash = @password_hash
+                                   WHERE user_id = @user_id";
+                        using (SqlCommand cmdUser = new SqlCommand(updateUserQuery, connection))
+                        {
+                            cmdUser.Parameters.AddWithValue("@username", txtFirstName.Text.Trim());
+                            cmdUser.Parameters.AddWithValue("@password_hash", txtLastName.Text.Trim());
+                            cmdUser.Parameters.AddWithValue("@user_id", userId);
+                            cmdUser.ExecuteNonQuery();
+                        }
+                    }
+
+                    MessageBox.Show("Student updated successfully!");
                 }
                 else
                 {
@@ -234,6 +246,68 @@ namespace SIS_CABILLO.FORMS
             else
             {
                 MessageBox.Show("Please select a student to update.", "Update", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnDelete_Click(object sender, EventArgs e)
+        {
+            if (dgvStudent.SelectedRows.Count > 0)
+            {
+                int studentId = Convert.ToInt32(dgvStudent.SelectedRows[0].Cells["student_id"].Value);
+
+                DialogResult result = MessageBox.Show(
+                    "Are you sure you want to delete this student?",
+                    "Confirm Deletion",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question
+                );
+
+                if (result == DialogResult.Yes)
+                {
+                    using (SqlConnection connection = new SqlConnection(DatabaseConnection.connectionString))
+                    {
+                        connection.Open();
+
+                        // Optional: If you want to also delete the related user_login record
+                        // First get the user_id of this student
+                        int userId = -1;
+                        string getUserIdQuery = "SELECT user_id FROM student WHERE student_id = @student_id";
+                        using (SqlCommand cmdUserId = new SqlCommand(getUserIdQuery, connection))
+                        {
+                            cmdUserId.Parameters.AddWithValue("@student_id", studentId);
+                            object obj = cmdUserId.ExecuteScalar();
+                            if (obj != null) userId = Convert.ToInt32(obj);
+                        }
+
+                        // Delete from student table
+                        string deleteStudentQuery = "DELETE FROM student WHERE student_id = @student_id";
+                        using (SqlCommand cmd = new SqlCommand(deleteStudentQuery, connection))
+                        {
+                            cmd.Parameters.AddWithValue("@student_id", studentId);
+                            cmd.ExecuteNonQuery();
+                        }
+
+                        // If there's a user_id linked, delete from user_login too
+                        if (userId > 0)
+                        {
+                            string deleteUserQuery = "DELETE FROM user_login WHERE user_id = @user_id";
+                            using (SqlCommand cmdUser = new SqlCommand(deleteUserQuery, connection))
+                            {
+                                cmdUser.Parameters.AddWithValue("@user_id", userId);
+                                cmdUser.ExecuteNonQuery();
+                            }
+                        }
+                    }
+
+                    MessageBox.Show("Student deleted successfully!", "Deleted", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    // Reload students after delete
+                    LoadStudents();
+                }
+            }
+            else
+            {
+                MessageBox.Show("Please select a student to delete.", "Delete", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
     }
